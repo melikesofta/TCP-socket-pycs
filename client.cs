@@ -15,24 +15,28 @@ class Program
         {
             //---create a TCPClient object at the IP and port no.---
             TcpClient client = new TcpClient(SERVER_IP, PORT_NO);
-
-            while(true){
+			string pathToFile = Directory.GetCurrentDirectory() + "/simple.json";
+			byte[] fileName = Encoding.UTF8.GetBytes(pathToFile);
+			byte[] fileData = File.ReadAllBytes(pathToFile);
+			//Console.WriteLine("Contents of the file: " + Encoding.ASCII.GetString(fileData, 0, fileData.Length));
+			Console.WriteLine("Sending file " + pathToFile + " of length " + fileData.Length);
+            NetworkStream nwStream = client.GetStream();
+			nwStream.Write(fileData, 0, fileData.Length);
+			bytesToRead = new byte[client.ReceiveBufferSize];
+			bytesRead = nwStream.Read(bytesToRead, 0, client.ReceiveBufferSize);
+			Console.WriteLine("Server's message: " + Encoding.ASCII.GetString(bytesToRead, 0, bytesRead));
+			//while(true){
                 //---data to send to the server---
-                Console.WriteLine("Write message to send: ");
-                textToSend = Console.ReadLine();
-
-                NetworkStream nwStream = client.GetStream();
-                bytesToSend = ASCIIEncoding.ASCII.GetBytes(textToSend);
-
-                //---send the text---
-                Console.WriteLine("Sending : " + textToSend);
-                nwStream.Write(bytesToSend, 0, bytesToSend.Length);
-
-                //---read back the text---
-                bytesToRead = new byte[client.ReceiveBufferSize];
-                bytesRead = nwStream.Read(bytesToRead, 0, client.ReceiveBufferSize);
-                Console.WriteLine("Received : " + Encoding.ASCII.GetString(bytesToRead, 0, bytesRead));
-            }
+                //Console.WriteLine("Write message to send: ");
+                //textToSend = Console.ReadLine();
+                //NetworkStream nwStream = client.GetStream();
+                //bytesToSend = ASCIIEncoding.ASCII.GetBytes(textToSend);
+                //Console.WriteLine("Sending : " + textToSend);
+                //nwStream.Write(bytesToSend, 0, bytesToSend.Length);
+                //bytesToRead = new byte[client.ReceiveBufferSize];
+                //bytesRead = nwStream.Read(bytesToRead, 0, client.ReceiveBufferSize);
+                //Console.WriteLine("Received : " + Encoding.ASCII.GetString(bytesToRead, 0, bytesRead));
+            //}
             client.Close();
         }
 }

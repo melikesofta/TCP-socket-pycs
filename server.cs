@@ -49,6 +49,7 @@ class Program{
 	        var stream = client.GetStream();
 	        while (!ct.IsCancellationRequested)
 	        {
+	           	//Array.Clear(buf, 0, buf.Length);
 	            //under some circumstances, it's not possible to detect
 	            //a client disconnecting if there's no data being sent
 	            //so it's a good idea to give them a timeout to ensure that 
@@ -59,8 +60,10 @@ class Program{
                 string receivedDate = DateTime.Now.ToString();
                 byte[] dateBytes = ASCIIEncoding.ASCII.GetBytes(receivedDate);
                 if(buf[0]!=0){
-	            	Console.WriteLine("Received from " + clientIndex + " :    " + dataReceived);
-	            	Array.Clear(buf, 0, buf.Length);
+						using (var _FileStream = new System.IO.FileStream("new.json", System.IO.FileMode.Create, System.IO.FileAccess.Write)){
+								_FileStream.Write(buf, 0, buf.Length);
+						}
+	            	//Console.WriteLine("Received from " + clientIndex + " :    " + dataReceived);
 	            }
 	            var completedTask = await Task.WhenAny(timeoutTask, amountReadTask)
 	                                          .ConfigureAwait(false);
