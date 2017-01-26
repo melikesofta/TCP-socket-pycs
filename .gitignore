@@ -1,0 +1,6 @@
+*.exe
+.DS_Store
+dep/
+working/
+citylots.json
+new.json
