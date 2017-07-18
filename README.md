@@ -1,6 +1,6 @@
 tcp socket with c# server and client - code adapted from http://stackoverflow.com/questions/10182751/server-client-send-receive-simple-text
 
-multiple shit--latest version http://stackoverflow.com/questions/5742577/c-sharp-sockets-handling-multiple-clients
+multiple stuff--latest version http://stackoverflow.com/questions/5742577/c-sharp-sockets-handling-multiple-clients
 
 this one is nice and simple:
 http://stackoverflow.com/questions/8655980/how-to-receive-a-file-over-tcp-which-was-sent-using-socket-filesend-method
